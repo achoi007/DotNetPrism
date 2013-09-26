@@ -9,11 +9,13 @@ namespace Calculator
 {
     public class SimpleCalculatorRepl : ICalculatorREPL
     {
-        public SimpleCalculatorRepl(ICalculator calc, IInputService inputService, IOutputService outputService)
+        private List<IOutputService> outputServices;
+
+        public SimpleCalculatorRepl(ICalculator calc, IInputService inputService, IEnumerable<IOutputService> outServices)
         {
             Calculator = calc;
             InputService = inputService;
-            OutputService = outputService;
+            this.outputServices = new List<IOutputService>(outServices);
         }
 
         public ICalculator Calculator
@@ -30,8 +32,12 @@ namespace Calculator
 
         public IOutputService OutputService
         {
-            get;
-            set;
+            get { return outputServices.FirstOrDefault(); }
+            set
+            {
+                outputServices.Clear();
+                outputServices.Add(value);
+            }
         }
 
         public void Run()
@@ -41,7 +47,11 @@ namespace Calculator
                 var calcType = InputService.CalcType;
                 var args = InputService.Args;
                 var result = Calculator.Execute(calcType, args);
-                OutputService.WriteMessage(result.ToString());
+                string mesg = result.ToString();
+                foreach (var outService in outputServices)
+                {
+                    outService.WriteMessage(mesg);
+                }
             }
         }
     }

@@ -23,6 +23,10 @@ namespace MyPrism.Calculator
             var ucConfig = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
             ucConfig.Configure(uc);
 
+            // Map IEnumerable to an array.  All named types mapped to IOutputService
+            // will be instantitated and appended to array.
+            uc.RegisterType<IEnumerable<IOutputService>, IOutputService[]>();
+
             // Create calculator REPL and run
             ICalculatorREPL loop = uc.Resolve<ICalculatorREPL>();
             loop.Run();

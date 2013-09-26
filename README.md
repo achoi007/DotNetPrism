@@ -8,6 +8,7 @@ To extract this project at different stage of development, use the following [GI
 * step-1 - pre-Unity, pre-PRISM
 * step-2 - hardcoded Unity
 * step-3 - use Unity configuration instead of hardcode
+* step-4 - CalculatorREPL now takes an IEnumerable of IOutputService
 
 For example, run the command `git checkout -f step-1` to switch to step 1
 

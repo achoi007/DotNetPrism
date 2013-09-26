@@ -10,6 +10,10 @@ Descriptions for folders:
 CHANGES
 -------
 
+step-4:
+* Add registration names in App.Config for IOutputService
+* Change Program.cs to register IOutputService[] for IEnumerable<IOutputService>
+
 step-3:
 * Add Unity configuration to App.config.
 * Remove references of IOLibrary and Calculator from MyPrism.Calculator project.
