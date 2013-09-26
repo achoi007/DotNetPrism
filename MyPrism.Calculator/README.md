@@ -10,6 +10,11 @@ Descriptions for folders:
 CHANGES
 -------
 
+step-6:
+* Add reference to common service locator library.
+* Make ContainerCalculatorRepl container agnostic.
+* Change Program.cs to use unity service locator wrapper.
+
 step-5:
 * Add named container in App.config.
 * Add ContainerCalculatorRepl which takes IUnityContainer as constructor argument.

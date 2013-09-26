@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using MyPrism.Interfaces;
 using System;
@@ -26,6 +27,11 @@ namespace MyPrism.Calculator
             // Map IEnumerable to an array.  All named types mapped to IOutputService
             // will be instantitated and appended to array.
             uc.RegisterType<IEnumerable<IOutputService>, IOutputService[]>();
+
+            // Register unity adapter as IServiceLocator.  ContainerCalculatorRepl
+            // now takes IServiceContainer instead of IUnityContainer so that it's
+            // container agnostic.
+            uc.RegisterInstance<IServiceLocator>(new UnityServiceLocator(uc));
 
             // Create calculator REPL and run
             ICalculatorREPL loop = uc.Resolve<ICalculatorREPL>();

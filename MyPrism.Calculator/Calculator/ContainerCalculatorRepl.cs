@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 using MyPrism.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace Calculator
 {
     class ContainerCalculatorRepl : SimpleCalculatorRepl
     {
-        public ContainerCalculatorRepl(IUnityContainer c) :
-            base(c.Resolve<ICalculator>(), 
-                 c.Resolve<IInputService>(),
-                 c.ResolveAll<IOutputService>())
+        public ContainerCalculatorRepl(IServiceLocator srvLocate) :
+            base(srvLocate.GetInstance<ICalculator>(),
+                 srvLocate.GetInstance<IInputService>(),
+                 srvLocate.GetAllInstances<IOutputService>())
         {
         }
     }
