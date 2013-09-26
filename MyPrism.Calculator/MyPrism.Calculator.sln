@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPrism.Calculator", "MyPrism.Calculator\MyPrism.Calculator.csproj", "{4C6E7AD7-9B41-4CE1-A8AF-25F7B080FA76}"
+	ProjectSection(ProjectDependencies) = postProject
+		{82D53C1F-1F6F-42B8-AF02-60356E5C8EED} = {82D53C1F-1F6F-42B8-AF02-60356E5C8EED}
+		{3FD1E5EB-48A8-46D4-9149-B6AA692F4926} = {3FD1E5EB-48A8-46D4-9149-B6AA692F4926}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPrism.Interfaces", "MyPrism.Interfaces\MyPrism.Interfaces.csproj", "{400A4AE9-0CBD-4ED5-9EEC-77DA3537058B}"
 EndProject

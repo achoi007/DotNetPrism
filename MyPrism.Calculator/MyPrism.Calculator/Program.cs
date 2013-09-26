@@ -21,7 +21,7 @@ namespace MyPrism.Calculator
             // Create unity container and use configuration file to configure it.
             IUnityContainer uc = new UnityContainer();
             var ucConfig = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
-            ucConfig.Configure(uc);
+            ucConfig.Configure(uc, GetContainerName());
 
             // Map IEnumerable to an array.  All named types mapped to IOutputService
             // will be instantitated and appended to array.
@@ -36,6 +36,12 @@ namespace MyPrism.Calculator
         {
             var strArray = Enum.GetNames(typeof(CalculationType));
             return string.Join(", ", strArray);
+        }
+
+        static string GetContainerName()
+        {
+            Console.WriteLine("Container name (blank or containerRepl): ");
+            return Console.ReadLine();
         }
     }
 }

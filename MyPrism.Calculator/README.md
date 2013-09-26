@@ -10,6 +10,12 @@ Descriptions for folders:
 CHANGES
 -------
 
+step-5:
+* Add named container in App.config.
+* Add ContainerCalculatorRepl which takes IUnityContainer as constructor argument.
+* Change SimpleCalculatorRepl to take enumerable of IOutputService objects.
+* Fix project build ordering.
+
 step-4:
 * Add registration names in App.Config for IOutputService
 * Change Program.cs to register IOutputService[] for IEnumerable<IOutputService>
