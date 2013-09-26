@@ -1,5 +1,6 @@
 ﻿using Calculator;
 using IOLibrary;
+using Microsoft.Practices.Unity;
 using MyPrism.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,19 @@ namespace MyPrism.Calculator
     {
         static void Main(string[] args)
         {
+            // Print simple instruction.
             Console.WriteLine("Simple calculator service.\nEnter OP number number and hit return.\nUse blank line to terminate.");
             Console.WriteLine("Available OP: " + GetOps());
 
-            ICalculator calc = new SimpleCalculator();
-            IInputService inputService = new ConsoleInputService();
-            IOutputService outputService = new ConsoleOutputService();
-            ICalculatorREPL loop = new SimpleCalculatorRepl(calc, inputService, outputService);
+            // Create unity container and register types
+            IUnityContainer uc = new UnityContainer();
+            uc.RegisterType<ICalculator, SimpleCalculator>();
+            uc.RegisterType<IInputService, ConsoleInputService>();
+            uc.RegisterType<IOutputService, ConsoleOutputService>();
+            uc.RegisterType<ICalculatorREPL, SimpleCalculatorRepl>();
+
+            // Create calculator REPL and run
+            ICalculatorREPL loop = uc.Resolve<ICalculatorREPL>();
             loop.Run();
         }
 
