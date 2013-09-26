@@ -10,9 +10,18 @@ Descriptions for folders:
 CHANGES
 -------
 
-step-1: 
-* Initial version
+step-3:
+* Add Unity configuration to App.config.
+* Remove references of IOLibrary and Calculator from MyPrism.Calculator project.
+* Add reference of System.Configuration to MyPrism.Calculator.
+* Add PostBuild.bat to copy runtime dll's into MyPrism.Calculator\bin.
+* Change Program.cs to use Unity Configuration.
 
 step-2: 
 * Use UnityContainer in MyPrism.Calculator/Program.cs.
 * Add reference to Unity3 in Nuget.
+
+step-1: 
+* Initial version
+
+
