@@ -1,0 +1,20 @@
+﻿<Window x:Class="StockAlert.App.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://www.codeplex.com/prism"
+        Title="Stock Alert PRISM Demo Application" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" prism:RegionManager.RegionName="HeaderRegion"></ContentControl>
+        
+        <TabControl Grid.Row="1" prism:RegionManager.RegionName="BodyRegion"></TabControl>
+        
+        <ContentControl Grid.Row="2" prism:RegionManager.RegionName="FooterRegion"></ContentControl>
+        
+    </Grid>
+</Window>

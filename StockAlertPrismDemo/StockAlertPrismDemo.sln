@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAlert.App", "StockAlert.App\StockAlert.App.csproj", "{10208A05-49FA-4BEB-B018-8373E2510D6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6533737E-3447-4A8C-9BB5-A7F50B865144} = {6533737E-3447-4A8C-9BB5-A7F50B865144}
+		{BF310EDD-F066-4292-912C-F4015623FED1} = {BF310EDD-F066-4292-912C-F4015623FED1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAlert.Infra", "StockAlert.Infra\StockAlert.Infra.csproj", "{6A000F0C-E99A-4631-B574-AA472A55EBEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3DD05289-60E7-4EE4-B6A7-E5A28854626A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockMarketData", "MockMarketData\MockMarketData.csproj", "{BF310EDD-F066-4292-912C-F4015623FED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketDataTicker", "MarketDataTicker\MarketDataTicker.csproj", "{6533737E-3447-4A8C-9BB5-A7F50B865144}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10208A05-49FA-4BEB-B018-8373E2510D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10208A05-49FA-4BEB-B018-8373E2510D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10208A05-49FA-4BEB-B018-8373E2510D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10208A05-49FA-4BEB-B018-8373E2510D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A000F0C-E99A-4631-B574-AA472A55EBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A000F0C-E99A-4631-B574-AA472A55EBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A000F0C-E99A-4631-B574-AA472A55EBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A000F0C-E99A-4631-B574-AA472A55EBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF310EDD-F066-4292-912C-F4015623FED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF310EDD-F066-4292-912C-F4015623FED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF310EDD-F066-4292-912C-F4015623FED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF310EDD-F066-4292-912C-F4015623FED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6533737E-3447-4A8C-9BB5-A7F50B865144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6533737E-3447-4A8C-9BB5-A7F50B865144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6533737E-3447-4A8C-9BB5-A7F50B865144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6533737E-3447-4A8C-9BB5-A7F50B865144}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+	EndGlobalSection
+EndGlobal
