@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -14,65 +15,98 @@ namespace MarketDataTicker
     public class TickerViewModel : INotifyPropertyChanged
     {
         private MarketDataTickEvent tickEvt_;
-        private List<MarketDataTick> ticks_;
         private DispatcherTimer timer_;
+        private List<char> tape_;
+        private string tapeStr_;
 
-        private void OnMarketDataTick(MarketDataTick tick)
+        private void OnMarketTick(MarketDataTick tick)
         {
-            ticks_.Add(tick);
+            // Add chars to tape_
+            tape_.AddRange(string.Format("{0} {1}|", tick.Symbol, tick.Last));
         }
 
-        public TickerViewModel(IEventAggregator evtAggr)
+        private void OnTimer(object sender, EventArgs e)
         {
-            // Set up list to remember ticks yet to be displayed.
-            ticks_ = new List<MarketDataTick>();
-
-            // Listen for market data ticks
-            tickEvt_ = evtAggr.GetEvent<MarketDataTickEvent>();
-            tickEvt_.Subscribe(OnMarketDataTick, ThreadOption.UIThread);
-
-            // Set up timer to move tape
-            timer_ = new DispatcherTimer();
-            timer_.Tick += timer_Tick;
-            timer_.Interval = TimeSpan.FromSeconds(3);
-            timer_.Start();
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            if (ticks_.Count == 0)
+            // No pending tick?  Done
+            if (tape_.Count == 0)
             {
                 return;
             }
 
-            // Helper function to generate u|d|- based on tick.Change
-            Func<MarketDataTick, char> upOrDown = (tick) =>
-            {
-                return (tick.Change > 0 ? 'u' : (tick.Change == 0 ? '-' : 'd'));
-            };
+            // Remove first character
+            tape_.RemoveAt(0);
 
-            // Generate the tape
-            Tape = ticks_.Aggregate(new StringBuilder(),
-                (acc, tick) => acc.AppendFormat("{0} {1} {2}|", upOrDown(tick), tick.Symbol, tick.Last),
-                acc => acc.ToString());
+            // Set the tape
+            Tape = tape_.Take(TapeLength).Aggregate(new StringBuilder(),
+                    (sb, ch) => sb.Append(ch),
+                    sb => sb.ToString());
+        }
 
-            // Remove first tick.
-            ticks_.RemoveAt(0);
-
-            // Notify change
+        private void NotifyPropertyChange([CallerMemberName] string name = "")
+        {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs("Tape"));
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public TickerViewModel(IEventAggregator evtAggr)
+        {
+            // Initialize tape
+            tape_ = new List<char>();
+            TapeLength = 80;
+
+            // Listen for market data ticks
+            tickEvt_ = evtAggr.GetEvent<MarketDataTickEvent>();
+            tickEvt_.Subscribe(OnMarketTick, ThreadOption.UIThread);
+
+            // Set up timer to move tape
+            timer_ = new DispatcherTimer();
+            timer_.Tick += OnTimer;
+        }
+
+        /// <summary>
+        /// Start strolling ticker
+        /// </summary>
+        public void Start()
+        {
+            timer_.Start();
+        }
+
+        /// <summary>
+        /// Stop strolling ticker
+        /// </summary>
+        public void Stop()
+        {
+            timer_.Stop();
+        }
+
+        /// <summary>
+        /// How often does ticker stroll
+        /// </summary>
+        public TimeSpan StrollInterval
+        {
+            get { return timer_.Interval; }
+            set { timer_.Interval = value; }
+        }
+
+        /// <summary>
+        /// Tape is of the form: Symbol Price|Symbol Price|....
+        /// </summary>
+        public string Tape
+        {
+            get { return tapeStr_; }
+            set
+            {
+                tapeStr_ = value;
+                NotifyPropertyChange();
             }
         }
 
         /// <summary>
-        /// Tape is of the form:
-        ///   Field1|Field2|....|FieldN
-        /// where:
-        ///   Fieldn := u|d message (for example u AAPL 101.25)
+        /// How many chars to display on tape.
         /// </summary>
-        public string Tape { get; private set; }
+        public int TapeLength { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

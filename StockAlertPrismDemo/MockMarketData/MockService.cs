@@ -24,7 +24,7 @@ namespace MockMarketData
             ticks_ = new Dictionary<string, MarketDataTick>();
             counts_ = new Dictionary<string, int>();
             evt_ = evtAgg.GetEvent<MarketDataTickEvent>();
-            Interval = 3000;
+            Interval = 1000;
         }
 
         public string Name
@@ -109,7 +109,7 @@ namespace MockMarketData
 
                             // Add tick to publish.  Don't want to do publishing while
                             // locking THIS object.
-                            tickToPub.Add(tick);
+                            tickToPub.Add(tick.Clone());
                         }
                     }
 

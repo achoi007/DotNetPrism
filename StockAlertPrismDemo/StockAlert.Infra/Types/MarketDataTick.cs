@@ -25,5 +25,18 @@ namespace StockAlert.Infra.Types
         }
 
         public long Volume { get; set; }
+
+        public MarketDataTick Clone()
+        {
+            return new MarketDataTick()
+            {
+                Ask = this.Ask,
+                Bid = this.Bid,
+                Last = this.Last,
+                PreviousClose = this.PreviousClose,
+                Symbol = this.Symbol,
+                Volume = this.Volume,
+            };
+        }
     }
 }
