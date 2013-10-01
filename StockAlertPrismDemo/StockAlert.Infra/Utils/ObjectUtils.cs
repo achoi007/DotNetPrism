@@ -13,21 +13,18 @@ namespace StockAlert.Infra.Utils
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string toStringReflect(this Object obj)
+        public static string ToStringReflect(this Object obj)
         {
-            // Extract name-value pairs for all readable public properties.
-            var props = from prop in obj.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic)
-                        where prop.CanRead
+            // Extract name-value pairs for all readable public non-indexed properties.
+            var props = from prop in obj.GetType().GetProperties(System.Reflection.BindingFlags.Public)
+                        where prop.CanRead && prop.GetIndexParameters().Length == 0
                         orderby prop.Name
                         select new { Name = prop.Name, Value = prop.GetValue(obj) };
 
             // Compose string in the form name=value name=value ....
-            StringBuilder sb = new StringBuilder();
-            foreach (var prop in props)
-            {
-                sb.AppendFormat("{0}={1} ", prop.Name, prop.Value);
-            }
-            return sb.ToString();
+            return props.Aggregate(new StringBuilder(),
+                (sb, p) => sb.AppendFormat("{0}={1} ", p.Name, p.Value),
+                sb => sb.ToString());
         }
     }
 }
