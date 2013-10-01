@@ -12,6 +12,7 @@ To extract this project at different stage of development, use the following [GI
 * step-5 - add new CalculatorREPL; 2 containers in App.config
 * step-6 - use IServiceLocator to make code container agnostic
 * step-7 - new wpf prism demo app - stock alert
+* step-8 - fixed market data ticker
 
 For example, run the command `git checkout -f step-1` to switch to step 1
 
